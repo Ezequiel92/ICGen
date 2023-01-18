@@ -1,5 +1,7 @@
 # Initial conditions generator
 
+Preconfigured public software and scripts to generate initial conditions (of an isolated galaxy) for [Arepo](https://arepo-code.org/).
+
 ## Folders
 
 - GalIC_1.0: Version 1.0 of GalIC [Yurin et al. (2014)](https://doi.org/10.1093/mnras/stu1421), available to download [here](https://www.h-its.org/2014/11/05/galic-code/).
