@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                         Run-time options                                         %    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------- Output file names and formats
+OutputDir                               ../output
+OutputFile                              dm_ic    
+SnapFormat                              3                  
+
+%-------------------------------------- Basic structural parameters of the model
+CC                                      10.0          % Halo concentration.
+V200                                    200.0         % Circular velocity v_200 (in km/s).
+LAMBDA                                  0.0           % Spin parameter.      
+MD                                      0.0           % Disk mass fraction.     
+MB                                      0.0           % Bulge mass fraction.
+MBH                                     0.0           % Black hole mass fraction.
+JD                                      0.0           % Disk spin fraction, typically chosen equal to MD.
+DiskHeight                              0.0           % Thickness of stellar disk in units of radial scale length.
+BulgeSize                               0.0           % Bulge scale length in units of halo scale length.
+HaloStretch                             1.0           % Spherical halo: 1, prolate distortion: < 1, otherwise oblate.
+BulgeStretch                            0.0           % Spherical bulge: 1, prolate distortion: < 1, otherwise oblate.
+
+%-------------------------------------- Particle numbers in target model
+N_HALO                                  32768         % Number of particles in dark halo.
+N_DISK                                  0             % Number of collisionless particles in disk.
+N_BULGE                                 0             % Number of bulge particles. 
+
+%-------------------------------------- Selection of symmetry constraints of velocity structure
+% 0 = spherically symmetric, isotropic
+% 1 = spherically symmetric, anisotropic (with beta parameter specified)
+% 2 = axisymmetric, f(E, Lz), with specified net rotation
+% 3 = axisymmetric, f(E, Lz, I_3), with <vz^2>/<vR^2> specified and net rotation specified
+%
+% *StreamingVelocityParameter gives the azimuthal streaming velocity in the TypeOf*VelocityStructure = 2/3 cases ('k parameter')
+%-------------------------------------- 
+TypeOfHaloVelocityStructure             2                                  
+TypeOfDiskVelocityStructure             0                
+TypeOfBulgeVelocityStructure            0
+
+HaloBetaParameter                       0             % Only relevant for TypeOfHaloVelocityStructure  = 1.
+BulgeBetaParameter                      0             % Only relevant for TypeOfBulgeVelocityStructure = 1.
+
+HaloDispersionRoverZratio               0.0           % Only relevant for TypeOfHaloVelocityStructure  = 3.
+DiskDispersionRoverZratio               0.0           % Only relevant for TypeOfDiskVelocityStructure  = 3.
+BulgeDispersionRoverZratio              0.0           % Only relevant for TypeOfBulgeVelocityStructure = 3.
+
+HaloStreamingVelocityParameter          -0.98
+DiskStreamingVelocityParameter          0.0
+BulgeStreamingVelocityParameter         0.0
+
+%-------------------------------------- Orbit integration accuracy
+TorbitFac                               10.0          % Regulates the integration time of orbits.
+TimeStepFactorOrbit                     0.01
+TimeStepFactorCellCross                 0.25
+
+%-------------------------------------- Iterative optimization parameters
+FractionToOptimizeIndependendly             0.001
+IndepenentOptimizationsPerStep              100
+StepsBetweenDump                            10
+MaximumNumberOfSteps                        100
+MinParticlesPerBinForDispersionMeasurement  100
+MinParticlesPerBinForDensityMeasurement     50  
+
+%-------------------------------------- Grid dimension and extension/resolution
+DG_MaxLevel                             7
+EG_MaxLevel                             7
+FG_Nbin                                 256           % Number of bins for the acceleration grid in the R and z directions.
+OutermostBinEnclosedMassFraction        0.95          % Regulates the fraction of mass of the Hernquist halo that must be inside the grid (determines grid extension).
+InnermostBinEnclosedMassFraction        0.0000001     % Regulates the fraction of mass enclosed by the innermost bin.
+MaxVelInUnitsVesc                       0.9999        % Maximum allowed velocity in units of the local escape velocity.
+
+%-------------------------------------- Construction of target density field
+SampleDensityFieldForTargetResponse     1             
+SampleParticleCount                     100000000     % Number of points sampled for target density field.
+
+%-------------------------------------- Construction of force field
+SampleForceNhalo                        0             
+SampleForceNdisk                        0
+SampleForceNbulge                       0
+Softening                               0.05
+
+%-------------------------------------- Accuracy settings of tree code used in construction of force field
+TypeOfOpeningCriterion                  1
+ErrTolTheta                             0.4
+ErrTolForceAcc                          0.0025
+
+%-------------------------------------- Domain decomposition parameters used in parallel tree code
+MultipleDomains                         4
+TopNodeFactor                           4
+
+%-------------------------------------- Parallel I/O parameters, only affects writing of galaxy files
+NumFilesPerSnapshot                     1
+NumFilesWrittenInParallel               1
+
+%-------------------------------------- Memory allocation
+MaxMemSize                              4275          % 4.275 GB
+BufferSize                              100.0
+BufferSizeGravity                       100.0
+
+%-------------------------------------- System of units
+UnitVelocity_in_cm_per_s                1e5           % 1 km/sec
+UnitLength_in_cm                        3.085678e21   % 1.0 kpc/h
+UnitMass_in_g                           1.989e43      % 1.0e10 M⊙/h
+GravityConstantInternal                 0             % G is automatically calculated 
+
+%-------------------------------------- Factors to tune merit function of time averaged velocity structure
+HaloValueRsFac                          1.0
+HaloValueTsFac                          1.0
+HaloValueQsFac                          1.0
+HaloValuePsFac                          1.0
+
+DiskValueRsFac                          1.0
+DiskValueTsFac                          1.0
+DiskValueQsFac                          1.0
+DiskValuePsFac                          1.0
+
+BulgeValueRsFac                         1.0
+BulgeValueTsFac                         1.0
+BulgeValueQsFac                         1.0
+BulgeValuePsFac                         1.0

@@ -1,0 +1,98 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                         Run-time options                                         %    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------- Initial conditions
+InitCondFile                            ../ICs/dm_ic
+ICFormat                                3
+InitGasTemp                             10001.0                        % K
+MinimumDensityOnStartUp                 1.0e-20
+GridSize                                32
+
+%-------------------------------------- Output file names and formats
+OutputDir                               ../output
+SnapshotFileBase                        snap
+NumFilesPerSnapshot                     1
+OutputListOn                            0
+OutputListFilename                      ./output_list.txt
+SnapFormat                              3
+NumFilesWrittenInParallel               1
+
+%-------------------------------------- Output frequency
+CpuTimeBetRestartFile                   7200                           % 7200 s = 2 hs
+TimeBetSnapshot                         0.02                           % ~20 Myr
+TimeBetStatistics                       0.02                           % ~20 Myr
+TimeOfFirstSnapshot                     0.0 
+
+%-------------------------------------- CPU-time limit and restarts
+TimeLimitCPU                            93000                          % 93000 s = 25.83 hs
+ResubmitOn                              0
+ResubmitCommand                         resend
+
+%-------------------------------------- Memory allocation
+MaxMemSize                              171000                         % ~95% of memory per node / MPI tasks per node
+
+%-------------------------------------- Simulated time span and spatial extent
+BoxSize                                 5500.0                         % ~5.5 Mpc
+PeriodicBoundariesOn                    0
+TimeBegin                               0.0
+TimeMax	                                1.2                            % ~1.2 Gyr
+
+%-------------------------------------- Cosmological parameters
+ComovingIntegrationOn                   0
+Omega0                                  1.0
+OmegaBaryon                             0.15733                        % ~15% of the mass is baryonic matter
+OmegaLambda                             0.0
+HubbleParam                             1.0
+
+%-------------------------------------- System of units
+UnitVelocity_in_cm_per_s                1e5                            % 1 km/sec
+UnitLength_in_cm                        3.085678e21                    % 1.0 kpc/h
+UnitMass_in_g                           1.989e43                       % 1.0e10 M⊙/h
+GravityConstantInternal                 0                              % G is automatically calculated 
+
+%-------------------------------------- Gravitational force accuracy
+TypeOfOpeningCriterion                  1
+ErrTolTheta                             0.7
+ErrTolForceAcc                          0.0025
+
+%-------------------------------------- Time integration accuracy
+TypeOfTimestepCriterion                 0
+ErrTolIntAccuracy                       0.012
+MaxSizeTimestep                         0.01
+MinSizeTimestep                         1.0e-8
+CourantFac                              0.3
+
+%-------------------------------------- Domain decomposition
+ActivePartFracForNewDomainDecomp        0.01
+MultipleDomains                         2
+TopNodeFactor                           4
+
+%-------------------------------------- Moving mesh
+DesNumNgb                               64
+MaxNumNgbDeviation                      4             
+CellShapingFactor                       1.0
+CellShapingSpeed                        0.5
+
+%-------------------------------------- Hydrodynamics
+LimitUBelowThisDensity                  0.0
+LimitUBelowCertainDensityToThisValue    0.0
+MinGasTemp                              20.0
+MinEgySpec                              0.0
+
+%-------------------------------------- Gravitational softening
+GasSoftFactor                           2.5
+SofteningComovingType0                  0.3
+SofteningComovingType1                  0.3
+SofteningMaxPhysType0                   0.3
+SofteningMaxPhysType1                   0.3
+SofteningTypeOfPartType0                0
+SofteningTypeOfPartType1                1
+SofteningTypeOfPartType2                1
+SofteningTypeOfPartType3                1
+SofteningTypeOfPartType4                1
+SofteningTypeOfPartType5                1
+
+%-------------------------------------- Cooling and star formation
+CoolingOn                               0
+StarformationOn                         0
