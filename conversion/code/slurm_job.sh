@@ -24,7 +24,7 @@ fi
 main() {
 	mpiexec -np "${SLURM_NPROCS}" ../build/Arepo param.txt
 
-	# Move output files to the correct folder and clean everything else
+	# Move output files to the correct folder and remove everything else
 	if [[ $? -eq 0 ]]; then
 
 		if [[ $# -eq 0 ]]; then
