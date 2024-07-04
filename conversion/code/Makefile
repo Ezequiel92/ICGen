@@ -83,12 +83,12 @@ HDF5_LIB  = -L$(HDF5_HOME)/lib -lhdf5 -lz -Wl,-rpath,$(HDF5_HOME)/lib
 endif
 # end of FREYA
 
-# COBRA
-ifeq ($(SYSTYPE),"COBRA")
-CC         = mpicc -std=c11 -Wall
-CC        += -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-variable
-CC        += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter
-OPTIMIZE   = -O2 -march=skylake-avx512 -mtune=skylake-avx512
+# VIPER
+ifeq ($(SYSTYPE),"VIPER")
+CC        = mpicc -std=c11 -Wall
+CC       += -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unknown-pragmas
+CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter -Wno-format
+OPTIMIZE  = -O3 -march=znver4
 
 MPICHLIB  = -lmpi
 GSL_INCL  = -I$(GSL_HOME)/include
@@ -100,7 +100,7 @@ FFTW_LIBS = -L$(FFTW_HOME)/lib -Wl,-rpath,$(FFTW_HOME)/lib
 HDF5INCL  = -I$(HDF5_HOME)/include -DH5_USE_16_API
 HDF5LIB   = -L$(HDF5_HOME)/lib -lhdf5 -lz -Wl,-rpath,$(HDF5_HOME)/lib
 endif
-# end of COBRA
+# end of VIPER
 
 
 # Insert the library paths for your system here, similar to SYSTYPE "Darwin" above

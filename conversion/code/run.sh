@@ -21,38 +21,45 @@ main() {
 	chmod -R 744 ../code
 
     # Load modules
-    if [[ "${HOSTNAME::-2}" = "raven" ]] || [[ "${HOSTNAME::-2}" = "cobra" ]]; then
+    if [[ "${HOSTNAME::-2}" = "raven" ]]; then
         module purge
         module --silent load hwloc
         module --silent load gcc/12
-        module --silent load openmpi/4
-        module --silent load gsl
-        module --silent load fftw-mpi
-        module --silent load hdf5-mpi
     elif [[ "${HOSTNAME::-2}" = "freya" ]]; then
         module purge
         module --silent load hwloc
         module --silent load gcc/11
-        module --silent load openmpi/4
-        module --silent load gsl
-        module --silent load fftw-mpi
-        module --silent load hdf5-mpi
+    elif [[ "${HOSTNAME::-2}" = "viper" ]]; then
+        module purge
+        module --silent load hwloc
+        module --silent load gcc/14
+    else
+        echo "I could not recognize the hostname: ${HOSTNAME::-2}"
+        exit
     fi
 
-    # Set the system type variable and the correct running command
+    module --silent load openmpi/4
+    module --silent load gsl
+    module --silent load fftw-mpi
+    module --silent load hdf5-mpi
+
+    # Set the variable for system type variable, and the running command
     if [[ "${HOSTNAME::-2}" = "raven" ]]; then
         export SYSTYPE=RAVEN
         sed -i "s&mpiexec -np \"\${SLURM_NPROCS}\"&srun&" ./slurm_job.sh
     elif [[ "${HOSTNAME::-2}" = "freya" ]]; then
         export SYSTYPE=FREYA
         sed -i "s&srun&mpiexec -np \"\${SLURM_NPROCS}\"&" ./slurm_job.sh
-    elif [[ "${HOSTNAME::-2}" = "cobra" ]]; then
-        export SYSTYPE=COBRA
-        sed -i "s&srun&mpiexec -np \"\${SLURM_NPROCS}\"&" ./slurm_job.sh
+    elif [[ "${HOSTNAME::-2}" = "viper" ]]; then
+        export SYSTYPE=VIPER
+        sed -i "s&mpiexec -np \"\${SLURM_NPROCS}\"&srun&" ./slurm_job.sh
+    else
+        echo "I could not recognize the hostname: ${HOSTNAME::-2}"
+        exit
     fi
 
 	# Compile the code
-	make -j8 CONFIG=./Config.sh BUILD_DIR=../build EXEC=../build/Arepo
+	make -j6 CONFIG=./Config.sh BUILD_DIR=../build EXEC=../build/Arepo
 
 	# Send the job to the cluster
 	if [[ $? -eq 0 ]]; then

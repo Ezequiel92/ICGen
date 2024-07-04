@@ -70,22 +70,24 @@ HDF5LIB   = -L$(HDF5_HOME)/lib -lhdf5 -lz -Wl,-rpath,$(HDF5_HOME)/lib
 endif
 # end of FREYA
 
-# COBRA
-ifeq ($(SYSTYPE),"COBRA")
-CC         = mpicc -std=c11 -Wall
-CC        += -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unknown-pragmas
-CC        += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter
-OPTIMIZE   = -O2 -march=skylake-avx512 -mtune=skylake-avx512
+# VIPER
+ifeq ($(SYSTYPE),"VIPER")
+CC        = mpicc -std=c11 -Wall
+CC       += -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unknown-pragmas
+CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter -Wno-format
+OPTIMIZE  = -O3 -march=znver4
 
 MPICHLIB  = -lmpi
 GSL_INCL  = -I$(GSL_HOME)/include
-GSL_LIBS  = -L$(GSL_HOME)/lib -Wl,-rpath,$(GSL_HOME)/lib
+GSL_LIBS  = -L$(GSL_HOME)/lib -lgsl -lgslcblas -Wl,-rpath,$(GSL_HOME)/lib
+HWLOC_INCL= -I$(HWLOC_HOME)/include
+HWLOC_LIB = -L$(HWLOC_HOME)/lib -lhwloc -Wl,-rpath,$(HWLOC_HOME)/lib
 FFTW_INCL = -I$(FFTW_HOME)/include
-FFTW_LIBS = -L$(FFTW_HOME)/lib -lfftw3 -Wl,-rpath,$(FFTW_HOME)/lib
+FFTW_LIBS = -L$(FFTW_HOME)/lib -Wl,-rpath,$(FFTW_HOME)/lib
 HDF5INCL  = -I$(HDF5_HOME)/include -DH5_USE_16_API
 HDF5LIB   = -L$(HDF5_HOME)/lib -lhdf5 -lz -Wl,-rpath,$(HDF5_HOME)/lib
 endif
-# end of COBRA
+# end of VIPER
 
 ifndef LINKER
 LINKER = $(CC)
