@@ -20,7 +20,7 @@ cd GalIC_1.0/code # or `cd GalIC_1.1/code` depending on which version you want
 cd ../..
 ```
 
-where N is the number of particles in one dimension (i.e. `send 32` will produce $32^3$ DM particles).
+where N is the number of particles in one dimension (i.e. `./run.sh 32` will produce $32^3$ DM particles).
 
 - To convert the DM only ICs to the AREPO format, and to add gas cells, do:
 
