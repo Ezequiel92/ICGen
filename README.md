@@ -15,7 +15,7 @@ Scripts to generate isolated disk galaxy ICs for simulations using [Arepo](https
 - To generate the dark matter (DM) only ICs, do:
 
 ```bash
-cd ic_gen/GalIC_1.0/code # or `cd GalIC_1.1/code` depending on which version you want
+cd ic_gen/GalIC_1.0/code # or `cd ic_gen/GalIC_1.1/code` depending on which version you want
 ./run.sh N
 ```
 
