@@ -430,8 +430,8 @@ void optimize(int n)
       vdir_new = vstr + gsl_ran_gaussian(random_generator, sigma);
 
       iter++;
-      if(iter > 400000)
-	terminate("iter > 400000");
+      if(iter > 800000)
+	terminate("iter > 800000");
     }     
   while( sqrt(vdir_new * vdir_new + vbase2) >= All.MaxVelInUnitsVesc * P[n].Vesc);
 

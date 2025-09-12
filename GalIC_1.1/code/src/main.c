@@ -429,8 +429,8 @@ void optimize(int n) {
 		
 		iter++;
 		
-		if(iter > 400000)
-			terminate("iter > 400000");
+		if(iter > 800000)
+			terminate("iter > 800000");
 		
 	} while ( sqrt(v2_new) >= All.MaxVelInUnitsVesc * P[n].Vesc );
 
