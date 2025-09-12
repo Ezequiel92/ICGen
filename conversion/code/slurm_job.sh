@@ -5,14 +5,19 @@
 #SBATCH --error=../output/stderr_%j
 #SBATCH --mail-user=lozano.ez@gmail.com
 #SBATCH --mail-type=ALL,TIME_LIMIT_90
-#SBATCH --time=01:00:00
+#SBATCH --time=02:00:00
 #SBATCH --no-requeue
 
+# Total number of threads = nodes * ntasks-per-node
+
+# Number of nodes
+#SBATCH --nodes=1
+
 # Number of MPI tasks per node
-#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=40
 
 # Memory per node
-#SBATCH --mem=90G
+#SBATCH --mem=180G
 
 set -o errexit
 set -o nounset

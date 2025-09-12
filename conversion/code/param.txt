@@ -19,18 +19,18 @@ SnapFormat                              3
 NumFilesWrittenInParallel               1
 
 %-------------------------------------- Output frequency
-CpuTimeBetRestartFile                   7200                           % 7200 s = 2 hs
+CpuTimeBetRestartFile                   3600                           % 3600 s = 1 hs
 TimeBetSnapshot                         0.02                           % ~20 Myr
 TimeBetStatistics                       0.02                           % ~20 Myr
 TimeOfFirstSnapshot                     0.0 
 
 %-------------------------------------- CPU-time limit and restarts
-TimeLimitCPU                            93000                          % 93000 s = 25.83 hs
+TimeLimitCPU                            7200                          % 7200 s = 2 hs
 ResubmitOn                              0
 ResubmitCommand                         resend
 
 %-------------------------------------- Memory allocation
-MaxMemSize                              171000                         % ~95% of memory per node / MPI tasks per node
+MaxMemSize                              4275                         % ~95% of memory per node / MPI tasks per node
 
 %-------------------------------------- Simulated time span and spatial extent
 BoxSize                                 5500.0                         % ~5.5 Mpc

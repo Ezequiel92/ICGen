@@ -15,9 +15,8 @@ Scripts to generate isolated disk galaxy ICs for simulations using [Arepo](https
 - To generate the dark matter (DM) only ICs, do:
 
 ```bash
-cd GalIC_1.0/code # or `cd GalIC_1.1/code` depending on which version you want
+cd ic_gen/GalIC_1.0/code # or `cd GalIC_1.1/code` depending on which version you want
 ./run.sh N
-cd ../..
 ```
 
 where N is the number of particles in one dimension (i.e. `./run.sh 32` will produce $32^3$ DM particles).
@@ -25,7 +24,7 @@ where N is the number of particles in one dimension (i.e. `./run.sh 32` will pro
 - To convert the DM only ICs to the AREPO format, and to add gas cells, do:
 
 ```bash
-cd conversion/code
+cd ic_gen/conversion/code
 ./run.sh out_filename
 ```
 

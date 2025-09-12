@@ -49,7 +49,7 @@ HWLOC_LIB  = -lhwloc
 ifeq ($(SYSTYPE),"RAVEN")
 CC        = mpicc -std=c11 -Wall
 CC       += -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-variable 
-CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter
+CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter -Wno-format
 OPTIMIZE  = -O2 -march=icelake-server -mtune=icelake-server
 
 MPICH_LIB = -lmpi
@@ -68,7 +68,7 @@ endif
 ifeq ($(SYSTYPE),"FREYA")
 CC        = mpicc -std=c11 -Wall
 CC       += -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-variable 
-CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter
+CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter -Wno-format
 OPTIMIZE  = -O2 -march=skylake-avx512 -mtune=skylake-avx512
 
 MPICH_LIB = -lmpi
@@ -87,7 +87,7 @@ endif
 ifeq ($(SYSTYPE),"VIPER")
 CC        = mpicc -std=c11 -Wall
 CC       += -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unknown-pragmas
-CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter -Wno-format
+CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter -Wno-format -Wno-format
 OPTIMIZE  = -O3 -march=znver4
 
 MPICHLIB  = -lmpi
@@ -102,9 +102,26 @@ HDF5LIB   = -L$(HDF5_HOME)/lib -lhdf5 -lz -Wl,-rpath,$(HDF5_HOME)/lib
 endif
 # end of VIPER
 
+# CLEMENTINA
+ifeq ($(SYSTYPE),"CLEMENTINA")
+CC        = mpicc -std=c11 -Wall
+CC       += -Wno-unused-function -Wno-unused-but-set-variable -Wno-unused-variable -Wno-unknown-pragmas
+CC       += -Wno-stringop-truncation -Wno-restrict -Wno-maybe-uninitialized -Wno-format-overflow -Wno-array-parameter -Wno-format
+OPTIMIZE  = -O3 -march=native -mtune=native
+
+MPICHLIB  = -lmpi
+GSL_INCL  = -I$(GSL_DIR)/include
+GSL_LIBS  = -L$(GSL_DIR)/lib -lgsl -lgslcblas -Wl,-rpath,$(GSL_DIR)/lib
+HWLOC_INCL= -I$(HWLOC_DIR)/include
+HWLOC_LIB = -L$(HWLOC_DIR)/lib -lhwloc -Wl,-rpath,$(HWLOC_DIR)/lib
+FFTW_INCL = -I$(FFTW_DIR)/include
+FFTW_LIBS = -L$(FFTW_DIR)/lib -Wl,-rpath,$(FFTW_DIR)/lib
+HDF5INCL  = -I$(HDF5_DIR)/include -DH5_USE_16_API
+HDF5LIB   = -L$(HDF5_DIR)/lib -lhdf5 -lz -Wl,-rpath,$(HDF5_DIR)/lib
+endif
+# end of CLEMENTINA
 
 # Insert the library paths for your system here, similar to SYSTYPE "Darwin" above
-
 
 ifndef LINKER
 LINKER = $(CC)

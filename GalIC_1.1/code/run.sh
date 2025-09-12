@@ -23,24 +23,40 @@ main() {
     if [[ "${HOSTNAME::-2}" = "raven" ]]; then
         module purge
         module --silent load hwloc
-        module --silent load gcc/12
+        module --silent load gcc/15
+        module --silent load openmpi/5.0
+        module --silent load fftw-mpi
+        module --silent load hdf5-mpi
+        module --silent load gsl
     elif [[ "${HOSTNAME::-2}" = "freya" ]]; then
         module purge
         module --silent load hwloc
         module --silent load gcc/11
+        module --silent load openmpi/4
+        module --silent load fftw-mpi
+        module --silent load hdf5-mpi
+        module --silent load gsl
     elif [[ "${HOSTNAME::-2}" = "viper" ]]; then
         module purge
         module --silent load hwloc
-        module --silent load gcc/14
+        module --silent load gcc/15
+        module --silent load openmpi/5.0
+        module --silent load fftw-mpi
+        module --silent load hdf5-mpi
+        module --silent load gsl
+    elif [[ "${HOSTNAME::-2}" = "snmgt" ]]; then
+        module purge
+        module --quiet load hwloc
+        module --quiet load gnu
+        module --quiet load openmpi4
+        module --quiet load fftw
+        module --quiet load hdf5/1.10.8
+        module --quiet load gsl
+        module --quiet load gmp
     else
         echo "I could not recognize the hostname: ${HOSTNAME::-2}"
         exit
     fi
-
-    module --silent load openmpi/4
-    module --silent load gsl
-    module --silent load fftw-mpi
-    module --silent load hdf5-mpi
 
     # Set the variable for system type variable, and the running command
     if [[ "${HOSTNAME::-2}" = "raven" ]]; then
@@ -52,6 +68,9 @@ main() {
     elif [[ "${HOSTNAME::-2}" = "viper" ]]; then
         export SYSTYPE=VIPER
         sed -i "s&mpiexec -np \"\${SLURM_NPROCS}\"&srun&" ./slurm_job.sh
+    elif [[ "${HOSTNAME::-2}" = "snmgt" ]]; then
+        export SYSTYPE=CLEMENTINA
+        sed -i "s&srun&mpiexec -np \"\${SLURM_NPROCS}\"&" ./slurm_job.sh
     else
         echo "I could not recognize the hostname: ${HOSTNAME::-2}"
         exit
@@ -73,7 +92,7 @@ main() {
 		elif [[ $SCALE -eq 8 ]];then
 			HSML="0.0375"
 		else
-			echo "Only the resolutions 32, 64, 128 and 256 are allow!"
+			echo "Only the resolutions 32, 64, 128 and 256 are allowed!"
 			exit 1
 		fi
 	fi
